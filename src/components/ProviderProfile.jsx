@@ -16,7 +16,7 @@ const ReviewForm = ({ providerId, bookingId, onReviewSubmitted }) => {
     }
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/reviews',
+        'https://backend-final-lddn.onrender.com/api/reviews',
         { providerId, bookingId, rating, comment },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
@@ -76,7 +76,7 @@ const ProviderProfile = ({ provider, onBack, onBook }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/reviews/provider/${provider._id}`);
+        const res = await axios.get(`https://backend-final-lddn.onrender.com/api/reviews/provider/${provider._id}`);
         setReviews(res.data);
       } catch (err) {
         console.error('Fetch reviews error:', err);
@@ -85,7 +85,7 @@ const ProviderProfile = ({ provider, onBack, onBook }) => {
 
     const fetchBookings = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/bookings/my-bookings', {
+        const res = await axios.get('https://backend-final-lddn.onrender.com/api/bookings/my-bookings', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setBookings(res.data.filter(b => b.provider._id === provider._id && b.paymentStatus === 'completed'));
@@ -102,8 +102,8 @@ const ProviderProfile = ({ provider, onBack, onBook }) => {
   const handleReviewSubmitted = async () => {
     try {
       const [reviewsRes, providerRes] = await Promise.all([
-        axios.get(`http://localhost:5000/api/reviews/provider/${provider._id}`),
-        axios.get(`http://localhost:5000/api/providers/${provider._id}`)
+        axios.get(`https://backend-final-lddn.onrender.com/api/reviews/provider/${provider._id}`),
+        axios.get(`https://backend-final-lddn.onrender.com/api/providers/${provider._id}`)
       ]);
       setReviews(reviewsRes.data);
       setCurrentProvider(providerRes.data); // Update provider with new rating

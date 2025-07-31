@@ -13,12 +13,12 @@ const ProfilePage = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/auth/me', {
+        const res = await axios.get('https://backend-final-lddn.onrender.com/api/auth/me', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUser(res.data);
         if (res.data.role === 'provider') {
-          const providerRes = await axios.get(`http://localhost:5000/api/provider/${res.data.id}`, {
+          const providerRes = await axios.get(`https://backend-final-lddn.onrender.com/api/provider/${res.data.id}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setProvider(providerRes.data);
@@ -43,7 +43,7 @@ const ProfilePage = () => {
       formData.append('photo', photo);
       const token = localStorage.getItem('token');
       console.log(`Uploading new profile picture for ${user?.email}`);
-      const res = await axios.post('http://localhost:5000/api/provider/upload-photo', formData, {
+      const res = await axios.post('https://backend-final-lddn.onrender.com/api/provider/upload-photo', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

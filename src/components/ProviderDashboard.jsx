@@ -20,7 +20,7 @@ const ProviderDashboard = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/services/my-services', {
+        const res = await axios.get('https://backend-final-lddn.onrender.com/api/services/my-services', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setServices(res.data);
@@ -30,7 +30,7 @@ const ProviderDashboard = () => {
     };
     const fetchProfile = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/provider/profile', {
+        const res = await axios.get('https://backend-final-lddn.onrender.com/api/provider/profile', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         console.log('Fetched profile:', res.data);
@@ -59,13 +59,13 @@ const ProviderDashboard = () => {
     e.preventDefault();
     try {
       if (editServiceId) {
-        const res = await axios.put(`http://localhost:5000/api/services/${editServiceId}`, formData, {
+        const res = await axios.put(`https://backend-final-lddn.onrender.com/api/services/${editServiceId}`, formData, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setServices(services.map(s => (s._id === editServiceId ? res.data : s)));
         setEditServiceId(null);
       } else {
-        const res = await axios.post('http://localhost:5000/api/services', formData, {
+        const res = await axios.post('https://backend-final-lddn.onrender.com/api/services', formData, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setServices([...services, res.data]);
@@ -91,7 +91,7 @@ const ProviderDashboard = () => {
   const handleDeleteService = async (serviceId) => {
     if (!window.confirm('Are you sure you want to delete this service?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/services/${serviceId}`, {
+      await axios.delete(`https://backend-final-lddn.onrender.com/api/services/${serviceId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setServices(services.filter(s => s._id !== serviceId));
@@ -104,7 +104,7 @@ const ProviderDashboard = () => {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put('http://localhost:5000/api/provider/profile', profile, {
+      const res = await axios.put('https://backend-final-lddn.onrender.com/api/provider/profile', profile, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setProfile(res.data);
@@ -124,7 +124,7 @@ const ProviderDashboard = () => {
     formData.append('photo', file);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/provider/upload-photo', formData, {
+      const res = await axios.post('https://backend-final-lddn.onrender.com/api/provider/upload-photo', formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'multipart/form-data',

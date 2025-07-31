@@ -8,7 +8,7 @@ const UserProfile = ({ user, setUser }) => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/bookings/my-bookings', {
+        const res = await axios.get('https://backend-final-lddn.onrender.com/api/bookings/my-bookings', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setBookings(res.data);

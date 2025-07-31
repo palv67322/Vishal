@@ -34,7 +34,7 @@ const handleAuth = async (e) => {
     const url = isLogin ? '/api/auth/login' : '/api/auth/register';
     const data = isLogin ? { email, password } : { name, email, password, role };
     console.log(`Auth attempt: ${url}`, { email, password: '***', role, name });
-    const res = await axios.post(`http://localhost:5000${url}`, data);
+    const res = await axios.post(`https://backend-final-lddn.onrender.com${url}`, data);
     localStorage.setItem('token', res.data.token);
     localStorage.setItem('refreshToken', res.data.refreshToken);
 
@@ -43,7 +43,7 @@ const handleAuth = async (e) => {
       const formData = new FormData();
       formData.append('photo', photo);
       console.log(`Uploading profile picture for ${email}`);
-      await axios.post('http://localhost:5000/api/provider/upload-photo', formData, {
+      await axios.post('https://backend-final-lddn.onrender.com/api/provider/upload-photo', formData, {
         headers: {
           Authorization: `Bearer ${res.data.token}`,
           'Content-Type': 'multipart/form-data'
@@ -65,7 +65,7 @@ const handleAuth = async (e) => {
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
+      const res = await axios.post('https://backend-final-lddn.onrender.com/api/auth/forgot-password', { email });
       setSuccess(res.data.message);
       setError('');
       setIsForgotPassword(false);
@@ -79,7 +79,7 @@ const handleAuth = async (e) => {
   const handleVerifyOTP = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/verify-otp', { email, otp });
+      const res = await axios.post('https://backend-final-lddn.onrender.com/api/auth/verify-otp', { email, otp });
       setSuccess(res.data.message);
       setError('');
       setIsOTP(false);
@@ -92,7 +92,7 @@ const handleAuth = async (e) => {
   const handleResetPassword = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/reset-password', { email, otp, newPassword });
+      const res = await axios.post('https://backend-final-lddn.onrender.com/api/auth/reset-password', { email, otp, newPassword });
       setSuccess(res.data.message);
       setError('');
       setTimeout(() => {
